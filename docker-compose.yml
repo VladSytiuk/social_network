@@ -1,0 +1,28 @@
+version: "3.3"
+
+services:
+  web:
+    container_name: social-network-web
+    restart: always
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+       - db
+
+  db:
+    image: postgres
+    container_name: social-network-db
+    volumes:
+      - social_network_db:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+
+volumes:
+  social_network_db:
+    external: false

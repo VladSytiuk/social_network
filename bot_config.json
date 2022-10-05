@@ -1,0 +1,5 @@
+{
+  "NUMBER_OF_USERS": "10",
+  "MAX_POST_PER_USER": "15",
+  "MAX_LIKE_PER_USER": "10"
+}

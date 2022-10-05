@@ -1,0 +1,547 @@
+{
+	"info": {
+		"_postman_id": "b14685f8-b9f0-4634-b038-e13fa7cd82e4",
+		"name": "Posts_social_network",
+		"description": "# Introduction\nPosts social network is API for registration users,creating posts and liking them\n\n# Authentication\nUse jwt for authentication\n\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "sign_up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test_user",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "test_user@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Testpassword123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/sign-up/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"sign-up",
+						""
+					]
+				},
+				"description": "Sign up user"
+			},
+			"response": []
+		},
+		{
+			"name": "get JWT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test_user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Testpassword123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/token/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQyNTkxOTI2LCJqdGkiOiIzYTg3MDM4YzcxZGM0MThjODNiODQ3OWRkZWFiZTk5YiIsInVzZXJfaWQiOjU2MX0.FESVtn7BmvGHxgGh8DRHRkKzmtPltDxa23_mnGBzNuw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "test post",
+							"type": "text"
+						},
+						{
+							"key": "user",
+							"value": "561",
+							"description": "user id",
+							"type": "text"
+						},
+						{
+							"key": "body",
+							"value": "test body",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/posts/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"posts",
+						""
+					]
+				},
+				"description": "Creating new post"
+			},
+			"response": []
+		},
+		{
+			"name": "View posts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQyNTkyNjIxLCJqdGkiOiJiMjNhZjk2MjQ4NDI0NTg2YTJjN2JlMDJhMGVjNzQ2OCIsInVzZXJfaWQiOjU2MX0.8RCDAuAUMgqdxV7j_n0mJJNcDJxoJ2zzK-eAA_NkjbA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/posts/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"posts",
+						""
+					]
+				},
+				"description": "View all posts"
+			},
+			"response": []
+		},
+		{
+			"name": "View concrete post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQyNTkyNjIxLCJqdGkiOiJiMjNhZjk2MjQ4NDI0NTg2YTJjN2JlMDJhMGVjNzQ2OCIsInVzZXJfaWQiOjU2MX0.8RCDAuAUMgqdxV7j_n0mJJNcDJxoJ2zzK-eAA_NkjbA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/posts/1/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"posts",
+						"1",
+						""
+					]
+				},
+				"description": "View concrete post using post_id in the end of endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "Like post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQyNTkzNTQzLCJqdGkiOiI3MWI2ZDk2YzUyMGQ0M2ExYTRlNjY2NTFhNGI2MzBhYyIsInVzZXJfaWQiOjU2MX0.V8MRqH9dASCdX_COw9tdWRzsldLoHc26IUfWt6izXY0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user",
+							"value": "561",
+							"description": "input user_id here",
+							"type": "text"
+						},
+						{
+							"key": "post",
+							"value": "10",
+							"description": "input post_id here",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/likes/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"likes",
+						""
+					]
+				},
+				"description": "Like any post using this endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "Dislike post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQyNTkzOTcxLCJqdGkiOiI3MDRlNjE4NjQ0ZTI0ZTI1OTU1MzlmODc2NzMzMTk5ZSIsInVzZXJfaWQiOjU2MX0.AzGAdix7aIdfDqDsEpAEGKnNIu90IBbxWYLZqsWQajk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/likes/20/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"likes",
+						"20",
+						""
+					]
+				},
+				"description": "Specify the ID of the like you want to delete in the end of endpoint"
+			},
+			"response": []
+		},
+		{
+			"name": "Likes analytics",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQyNTk0Nzg5LCJqdGkiOiJmZDFhMjVjMGZhYjE0ZGJiODU3MGM0ZjYyNTU4YWEwNCIsInVzZXJfaWQiOjU2MX0.-X0gYpldHrnbhcWRD8G7K7ixa71YrxY8rtq0RmgRJRM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/analytics/?date_from=2022-10-04&date_to=2022-10-05",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"analytics",
+						""
+					],
+					"query": [
+						{
+							"key": "date_from",
+							"value": "2022-10-04"
+						},
+						{
+							"key": "date_to",
+							"value": "2022-10-05"
+						}
+					]
+				},
+				"description": "View how many likes was created aggregated by day, specifying date range in params"
+			},
+			"response": [
+				{
+					"name": "Likes analytics",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/analytics/?date_from=2022-10-04&date_to=2022-10-05",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"analytics",
+								""
+							],
+							"query": [
+								{
+									"key": "date_from",
+									"value": "2022-10-04"
+								},
+								{
+									"key": "date_to",
+									"value": "2022-10-05"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 05 Oct 2022 12:15:18 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.1"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "47"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"created_at\": \"2022-10-05\",\n        \"total_likes\": 191\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "User activity",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQyNTk1MTcxLCJqdGkiOiJiMTNlNWQ3YmZjOWE0ODU4ODg0NDFiM2MwMzY5NTk1ZCIsInVzZXJfaWQiOjU2MX0.QmX7AI_6WgpFdSWk3xkM7JAeXbL7H5RuT8IoQHHiq7U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v1/user-activity/2/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user-activity",
+						"2",
+						""
+					]
+				},
+				"description": "View user last login and last request to the service by specifying the user id in the end of endpoint"
+			},
+			"response": [
+				{
+					"name": "User activity",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/v1/user-activity/2/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user-activity",
+								"2",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 05 Oct 2022 12:21:21 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.9.1"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "108"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"username\": \"user1\",\n    \"last_login\": \"2022-10-05T10:40:52.488115Z\",\n    \"last_request\": \"2022-10-05T12:41:09.613029Z\"\n}"
+				}
+			]
+		}
+	]
+}

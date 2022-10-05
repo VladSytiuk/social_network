@@ -1,0 +1,67 @@
+# If you are using PyCharm #
+.idea
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.xml
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/gradle.xml
+.idea/**/libraries
+*.iws /out/
+
+
+# Byte-compiled / optimized / DLL files
+*__pycache__/
+*/__pycache__/
+*__pycache__
+*.py[cod]
+*$py.class
+
+
+
+# Django stuff:
+*.log
+local_settings.py
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environments
+!.env.example
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+.idea/
+venv.bak
+../venv/
+
+
+
+
