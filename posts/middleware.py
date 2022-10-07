@@ -1,14 +1,11 @@
-import datetime
+from django.utils.timezone import now
+from django.utils.deprecation import MiddlewareMixin
+
+from posts.models import UserProfile
 
 
-class UpdateLastActivityMiddleware(object):
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-        return self.get_response(request)
-
-    def process_view(self, request, view_func, view_args, view_kwargs):
+class UpdateLastActivityMiddleware(MiddlewareMixin):
+    def process_response(self, request, response, *args, **kwargs):
         if request.user.is_authenticated:
-            request.user.last_request = datetime.datetime.now()
-            request.user.save()
+            UserProfile.objects.filter(pk=request.user.pk).update(last_request=now())
+        return response

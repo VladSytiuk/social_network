@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class UserProfile(AbstractUser):
-    last_request = models.DateTimeField(blank=True, null=True)
+    last_request = models.DateTimeField(null=True)
 
     USERNAME_FIELD = "username"
 
@@ -24,4 +24,3 @@ class Post(models.Model):
 
     def __str__(self):
         return str(self.title)
-

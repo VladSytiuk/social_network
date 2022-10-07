@@ -28,9 +28,6 @@
 *.log
 local_settings.py
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
 
 # Distribution / packaging
 .Python
@@ -49,10 +46,13 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+.pytest_cache/
 
 # Environments
 !.env.example
+!.env.test.example
 .env
+.env.test
 .venv
 env/
 venv/

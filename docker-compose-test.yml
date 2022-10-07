@@ -1,0 +1,33 @@
+version: "3.3"
+
+services:
+  web_test:
+    container_name: social-network-web-test
+    environment:
+      - environment_type=test
+    build:
+      context: .
+      dockerfile: Dockerfile-test
+    command: >
+      bash -c "python manage.py migrate
+      && pytest tests -s -v"
+    volumes:
+      - .:/app
+    ports:
+      - "8001:8001"
+    depends_on:
+       - test_db
+
+  test_db:
+    image: postgres
+    container_name: social-network-db-test
+    volumes:
+      - social_network_db_test:/var/lib/postgresql/data
+    env_file:
+      - .env.test
+    ports:
+      - "5433:5432"
+
+volumes:
+  social_network_db_test:
+    external: false

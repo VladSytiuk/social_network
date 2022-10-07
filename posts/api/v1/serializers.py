@@ -18,17 +18,22 @@ class AnalyticSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    total_likes = serializers.IntegerField(required=False)
-
     class Meta:
         model = Post
-        fields = ("id", "user", "title", "body", "total_likes")
+        fields = ("id", "title", "body")
 
 
 class LikeSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Like
-        fields = ("user", "created_at", "post")
+        fields = ("created_at", "post", "id", "user")
+
+    def validate_post(self, value):
+        if Like.objects.filter(post=value, user=self.context["request"].user).exists():
+            raise serializers.ValidationError()
+        return value
 
 
 class UserSignUpSerializer(serializers.ModelSerializer):
@@ -36,12 +41,12 @@ class UserSignUpSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = UserProfile.objects.create_user(
-            username=validated_data["username"],
-            password=validated_data["password"],
-            email=validated_data["email"],
+            username=validated_data.get("username"),
+            email=validated_data.get("email"),
         )
         user.set_password(validated_data["password"])
         user.is_active = True
+        user.save()
         return user
 
     class Meta:

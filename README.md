@@ -10,7 +10,7 @@ Social network - API for registering users, creating posts, and giving likes. Th
 
 ### Run app
 
-Clone the project and then go to the root directory and create .env file like in .env.example (You might want to change the credentials)
+Clone the project and then go to the root directory and create .env and .env.test files like in .env.example/.env.test.example (You might want to change the credentials)
 
 Now you can run app with the command below:
 
@@ -22,6 +22,14 @@ then apply migrations:
 make migrate
 ```
 You can check the list of endpoints in postman_collection.json
+
+## Tests
+
+To run tests use command:
+
+```commandline
+make test
+```
 
 
 # 2. Bot

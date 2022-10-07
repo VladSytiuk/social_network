@@ -114,12 +114,6 @@
 							"type": "text"
 						},
 						{
-							"key": "user",
-							"value": "561",
-							"description": "user id",
-							"type": "text"
-						},
-						{
 							"key": "body",
 							"value": "test body",
 							"type": "text"
@@ -235,12 +229,6 @@
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "user",
-							"value": "561",
-							"description": "input user_id here",
-							"type": "text"
-						},
 						{
 							"key": "post",
 							"value": "10",

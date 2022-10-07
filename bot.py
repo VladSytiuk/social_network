@@ -3,6 +3,8 @@ import os
 import requests
 import argparse
 import sys
+import copy
+
 from faker import Faker
 from random import randint, choice
 
@@ -11,19 +13,21 @@ class Bot:
     _user_data = []
     created_posts_id = []
 
-    def __init__(self, users_amount, max_posts_amount, max_likes_amount):
+    def __init__(
+        self, users_amount: int, max_posts_amount: int, max_likes_amount: int
+    ) -> None:
         self.users_amount = users_amount
         self.max_posts_amount = max_posts_amount
         self.max_likes_amount = max_likes_amount
         self.faker = Faker()
 
-    def run(self):
+    def run(self) -> None:
         self._create_users_data()
         self._sign_up_users()
         self._create_posts()
         self._like_posts()
 
-    def _create_users_data(self):
+    def _create_users_data(self) -> None:
         for _ in range(self.users_amount):
             user = {
                 "username": self.faker.first_name() + self.faker.last_name(),
@@ -32,16 +36,16 @@ class Bot:
             }
             self._user_data.append(user)
 
-    def _sign_up_users(self):
+    def _sign_up_users(self) -> None:
         for user in self._user_data:
             request = requests.post("http://127.0.0.1:8000/api/v1/sign-up/", data=user)
             user["id"] = request.json()["id"]
 
-    def _create_posts(self):
+    def _create_posts(self) -> None:
         url = "http://127.0.0.1:8000/api/v1/posts/"
         posts_per_user = randint(0, self.max_posts_amount)
         for user in self._user_data:
-            headers = self.get_headers_with_jwt(user["username"], user["password"])
+            headers = self._get_headers_with_jwt(user["username"], user["password"])
             for _ in range(posts_per_user):
                 request = requests.post(
                     url=url,
@@ -54,20 +58,22 @@ class Bot:
                 )
                 self.created_posts_id.append(request.json()["id"])
 
-    def _like_posts(self):
+    def _like_posts(self) -> None:
         url = "http://127.0.0.1:8000/api/v1/likes/"
         likes_per_user = randint(0, self.max_likes_amount)
         for user in self._user_data:
-            headers = self.get_headers_with_jwt(user["username"], user["password"])
+            headers = self._get_headers_with_jwt(user["username"], user["password"])
+            posts_id = copy.deepcopy(self.created_posts_id)
             for j in range(likes_per_user):
-                requests.post(
+                response = requests.post(
                     url=url,
-                    data={"user": user["id"], "post": {choice(self.created_posts_id)}},
+                    data={"user": user["id"], "post": {choice(posts_id)}},
                     headers=headers,
                 )
+                posts_id.remove(response.json()["post"])
 
     @staticmethod
-    def get_headers_with_jwt(username, password):
+    def _get_headers_with_jwt(username: str, password: str) -> dict:
         request = requests.post(
             "http://127.0.0.1:8000/api/token/",
             data={"username": username, "password": password},
@@ -79,10 +85,9 @@ class Bot:
         return headers
 
     @classmethod
-    def bot_from_config(cls, file_path):
+    def bot_from_config(cls, file_path: str) -> "Bot":
         with open(file_path, "r") as config_file:
             config = json.load(config_file)
-
         users_amount = int(config["NUMBER_OF_USERS"])
         max_posts_amount = int(config["MAX_POST_PER_USER"])
         max_likes_amount = int(config["MAX_LIKE_PER_USER"])

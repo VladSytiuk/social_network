@@ -2,10 +2,11 @@ from django.db.models import Count
 
 from django_filters import rest_framework as filters
 
+
 from rest_framework.generics import RetrieveAPIView, ListAPIView, CreateAPIView
 from rest_framework import mixins
-from rest_framework.viewsets import GenericViewSet, ModelViewSet
-from rest_framework.permissions import AllowAny
+from rest_framework.viewsets import GenericViewSet
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from posts.models import Post, Like, UserProfile
 from posts.api.v1.filters import DateRangeFilterSet
@@ -17,6 +18,7 @@ from .serializers import (
     LikeSerializer,
     UserSignUpSerializer,
 )
+from posts.permissions import IsOwnerOrReadOnly
 
 
 class PostViewSet(
@@ -32,14 +34,17 @@ class PostViewSet(
         queryset = Post.objects.all().annotate(total_likes=Count("like"))
         return queryset
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
-class LikeViewSet(ModelViewSet):
+
+class LikeViewSet(mixins.CreateModelMixin, mixins.DestroyModelMixin, GenericViewSet):
     serializer_class = LikeSerializer
     queryset = Like.objects.all()
+    permission_classes = [IsOwnerOrReadOnly, IsAuthenticated]
 
 
 class AnalyticView(ListAPIView):
-    queryset = Like.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = DateRangeFilterSet
     serializer_class = AnalyticSerializer

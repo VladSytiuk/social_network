@@ -14,7 +14,14 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path=".env")
+
+def get_dotenv():
+    if os.environ.get("environment_type") == "test":
+        load_dotenv(dotenv_path=".env.test")
+    load_dotenv(dotenv_path=".env")
+
+
+get_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,10 +31,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-@-j51a0xh4$(d@l4b_&)48#4wsjz$jsm@yuojvcqyrsr%omp-2"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", default=False)
 
 ALLOWED_HOSTS = []
 
@@ -147,4 +154,8 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+}
+
+SIMPLE_JWT = {
+    "UPDATE_LAST_LOGIN": True,
 }
