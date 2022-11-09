@@ -26,4 +26,4 @@ jobs:
           export TWINE_USERNAME=aws
           export TWINE_PASSWORD=`aws codeartifact get-authorization-token --domain mint--domain-owner 547777771266 --query authorizationToken --output text`
           export TWINE_REPOSITORY_URL=`aws codeartifact get-repository-endpoint --domain mint--domain-owner 547777771266 --repository my-private-repo --format pypi --query repositoryEndpoint --output text`
-          twine upload dist/*
+          twine upload
