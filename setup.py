@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='samplepackage',
     version='0.1',
-    packages=['samplepackage'],
+    packages=['posts'],
     include_package_data=True,
     zip_safe=False
 )
