@@ -20,7 +20,7 @@ jobs:
         with:
           aws-access-key-id: AKIAX7CQZO4BBGXMBNHT
           aws-secret-access-key: 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
-          aws-region: eu-west-1
+          aws-region: us-east-1
       - name: Build and publish
         run: |
           export TWINE_USERNAME=aws
