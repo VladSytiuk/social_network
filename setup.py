@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='samplepackage',
-    version='',
+    version=1,
     packages=['posts'],
     include_package_data=True,
     zip_safe=False
