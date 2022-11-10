@@ -15,3 +15,4 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
         # Instance must have an attribute named `owner`.
         return True
+print("fdfsdf")
