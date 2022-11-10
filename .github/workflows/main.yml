@@ -18,8 +18,8 @@ jobs:
       - uses: aws-actions/setup-sam@v1
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: AKIAX7CQZO4BBGXMBNHT
-          aws-secret-access-key: 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
+          aws-access-key-id: AKIAX7CQZO4BNBVVRGQK
+          aws-secret-access-key: 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
           aws-region: us-east-1
       - name: Build and publish
         run: |
