@@ -25,5 +25,5 @@ jobs:
           export TWINE_USERNAME=aws
           export TWINE_PASSWORD=`aws codeartifact get-authorization-token --domain new --domain-owner 547777771266 --query authorizationToken --output text`
           export TWINE_REPOSITORY_URL=`aws codeartifact get-repository-endpoint --domain new --domain-owner 547777771266 --repository repo --format pypi --query repositoryEndpoint --output text`
-          python setup.py sdist bdist_wheel
+          python setup.py samplepackage -b ".`date '+%Y%m%d'`git`git rev-parse --short HEAD`" build sdist bdist_wheel 
           twine upload dist/* --verbose
